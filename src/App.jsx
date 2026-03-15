@@ -1,6 +1,4 @@
-
 import { useState } from "react";
-
 const phases = [
   {
     id: 1,
@@ -464,3 +462,4 @@ export default function App() {
                 )}
               </div>
             );
+    }
