@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Malay Umrao | Geopolitical Intelligence</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --gold:#C8A96E;--blue:#6E9EC8;--green:#6EC87A;--red:#C86E6E;
+  --bg:#07070F;--bg2:#0C0C1A;--bg3:#0F0F20;
+  --text:#E0DDD4;--muted:#777;--border:#1A1A2E;
+}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Cormorant Garamond',serif;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(ellipse at 20% 20%,rgba(200,169,110,0.04) 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(110,158,200,0.04) 0%,transparent 50%);pointer-events:none;z-index:0;}
+#root{position:relative;z-index:1;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+@keyframes shimmer{0%{background-position:-200% 0;}100%{background-position:200% 0;}}
+.fade-up{animation:fadeUp 0.7s ease forwards;}
+.fade-up-2{animation:fadeUp 0.7s 0.15s ease forwards;opacity:0;}
+.fade-up-3{animation:fadeUp 0.7s 0.3s ease forwards;opacity:0;}
+.fade-up-4{animation:fadeUp 0.7s 0.45s ease forwards;opacity:0;}
+input,button{font-family:'JetBrains Mono',monospace;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+
+const { useState, useEffect } = React;
+
+const NAV_LINKS = ["About","Roadmap","Subscribe"];
+
+const PHASES = [
+  {
+    id:1, title:"Foundation", sub:"Weeks 1-2", color:"#C8A96E", icon:"◈",
+    desc:"Build your knowledge base and publishing platform from zero.",
+    steps:[
+      {icon:"🎯", title:"Understand What You Are Selling",
+       body:"A Geopolitical Intelligence Newsletter is NOT a news channel. You are not reporting what happened. You are explaining WHY it happened, WHAT it means for money and business, and WHAT will happen next. You are a translator between complex global events and people who need to make decisions."},
+      {icon:"🔬", title:"Pick Your Niche",
+       body:"The biggest mistake beginners make: writing about everything geopolitical. You need ONE intersection. Options: India and Global Trade Routes, BRICS and De-dollarization, South Asia Political Risk, China-India Relations, Energy Geopolitics, or Africa Emerging Markets. Choose what you can read about for 3 hours and feel energized."},
+      {icon:"🛠", title:"Set Up Substack (Free)",
+       body:"Go to substack.com and click Start Writing. Create your publication name, write a one-line description, set up your bio. Substack is free to publish, free to collect subscribers, and takes only 10% when you go paid. Your bio formula: I analyze [niche] and explain what it means for [audience]. Published every [day]."},
+      {icon:"📡", title:"Build Your Daily Reading System",
+       body:"Morning: Reuters, Al Jazeera, The Wire. Deep dive: Google Scholar, RAND Corporation, Brookings Institution, Council on Foreign Relations. Your 6-hour daily routine: 2 hours reading, 2 hours writing, 2 hours audience building. Consistency beats intensity every single day."},
+    ]
+  },
+  {
+    id:2, title:"Content", sub:"Weeks 3-5", color:"#6E9EC8", icon:"◉",
+    desc:"Learn the exact format of intelligence analysis and write your first issues.",
+    steps:[
+      {icon:"📝", title:"The Newsletter Formula",
+       body:"Every issue follows this structure: HEADLINE (bold claim), HOOK (2-3 sentences on what happened), CONTEXT (why this has been building), ANALYSIS (your original insight - what is really happening beneath the surface), IMPLICATION (what this means for your reader), CALL (what to watch next). Length: 400-700 words. Never more."},
+      {icon:"✍", title:"Write 4 Issues Before You Launch",
+       body:"Issue 1: Why this newsletter exists and who you are. Issues 2-4: Analyze 3 recent events in your niche. If someone discovers you and sees only 1 post, they leave. If they see 4 thoughtful posts, they subscribe. Write like you are explaining to a smart friend, not writing an academic essay."},
+      {icon:"🔍", title:"Research Like an Analyst",
+       body:"The 3-Source Rule: For every analysis, find one Western source (Reuters, FT), one non-Western source (Al Jazeera, CGTN), and one data source (World Bank, IMF). Ask yourself: WHO benefits? WHO loses? WHAT does history say? WHAT does the data show? WHAT will the losers do next? That last question is your prediction."},
+    ]
+  },
+  {
+    id:3, title:"Audience", sub:"Weeks 6-10", color:"#6EC87A", icon:"◎",
+    desc:"Build to 200 real subscribers using only free platforms.",
+    steps:[
+      {icon:"💼", title:"LinkedIn Strategy",
+       body:"Post 5 times per week. Format 1: 150-word insight post ending with link to your newsletter. Format 2: Thread - 5 things most people do not understand about [topic]. Format 3: Genuine question to your audience. Growth hack: Comment thoughtfully on posts by large geopolitics accounts. 10 smart comments per day for 30 days. Watch followers grow."},
+      {icon:"🐦", title:"Twitter Strategy",
+       body:"Tweet live reactions when news breaks. Share data with your interpretation. Reply to accounts with 10K-100K followers in your niche. Use TweetDeck to monitor keywords like BRICS, India sanctions, de-dollarization in real time. Jump into conversations when they are hot."},
+      {icon:"🎯", title:"First 200 Subscribers Plan",
+       body:"Week 1: Personal outreach to 30 people on WhatsApp and LinkedIn. Expect 20 subscribers. Week 2-3: Reddit strategy on r/geopolitics, r/india, r/Economics. Be the smartest person in the thread. Week 4-6: LinkedIn compound growth kicks in. Week 7-10: Shoutout swaps with 3 other small newsletters."},
+    ]
+  },
+  {
+    id:4, title:"Revenue", sub:"Month 3+", color:"#C86E6E", icon:"◆",
+    desc:"Turn your audience into sustainable income streams.",
+    steps:[
+      {icon:"💰", title:"Paid Subscriptions on Substack",
+       body:"Do not monetize until you have 200 engaged subscribers. Connect Stripe to Substack (free, works with Indian bank accounts). Set pricing at Rs 299/month or Rs 2499/year. Keep weekly analysis free. Put deep-dive reports, forward-looking analysis, and monthly Q&A sessions behind the paywall. At 1000 subscribers and 8% conversion: Rs 23,920 per month."},
+      {icon:"📈", title:"Other Revenue Streams",
+       body:"Sponsored issues: Rs 5,000-25,000 per issue at 1000 subscribers. Consulting and advisory: Rs 5,000-50,000 per project. Custom research reports: Rs 2,000-15,000 each sold on Gumroad. Speaking and webinars: Rs 5,000-30,000 per session. Courses and workshops: Rs 999-4,999 on Teachable or Graphy."},
+      {icon:"🏁", title:"90-Day Milestones",
+       body:"Day 14: Substack live, 4 issues written, 50 subscribers. Day 30: Posting daily on LinkedIn, 8 issues published, 100 subscribers. Day 60: First viral LinkedIn post, consulting inquiry received, 200 subscribers. Day 90: Paid tier launched, first rupees earned, 300 subscribers. Most people quit at Day 30. Do not be most people."},
+    ]
+  },
+];
+
+function Nav(){
+  const [scrolled,setScrolled]=useState(false);
+  useEffect(()=>{
+    const h=()=>setScrolled(window.scrollY>40);
+    window.addEventListener('scroll',h);
+    return()=>window.removeEventListener('scroll',h);
+  },[]);
+  return(
+    <nav style={{
+      position:'fixed',top:0,left:0,right:0,zIndex:100,
+      padding:'16px 32px',
+      background:scrolled?'rgba(7,7,15,0.95)':'transparent',
+      backdropFilter:scrolled?'blur(12px)':'none',
+      borderBottom:scrolled?'1px solid rgba(200,169,110,0.1)':'none',
+      display:'flex',alignItems:'center',justifyContent:'space-between',
+      transition:'all 0.3s ease',
+    }}>
+      <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:12,color:'var(--gold)',letterSpacing:'0.2em'}}>
+        MERIDIAN BRIEF
+      </div>
+      <div style={{display:'flex',gap:32}}>
+        {NAV_LINKS.map(l=>(
+          <a key={l} href={'#'+l.toLowerCase()} style={{
+            fontFamily:"'JetBrains Mono',monospace",fontSize:11,
+            color:'var(--muted)',letterSpacing:'0.15em',
+            textDecoration:'none',transition:'color 0.2s',
+          }}
+          onMouseEnter={e=>e.target.style.color='var(--gold)'}
+          onMouseLeave={e=>e.target.style.color='var(--muted)'}
+          >{l}</a>
+        ))}
+      </div>
+    </nav>
+  );
+}
+
+function Hero(){
+  const [email,setEmail]=useState('');
+  const [status,setStatus]=useState('');
+
+  const handleSubmit=()=>{
+    if(!email||!email.includes('@')){setStatus('error');return;}
+    setStatus('success');
+    setEmail('');
+    setTimeout(()=>setStatus(''),4000);
+  };
+
+  return(
+    <section id="about" style={{
+      minHeight:'100vh',display:'flex',flexDirection:'column',
+      justifyContent:'center',padding:'120px 32px 80px',
+      maxWidth:960,margin:'0 auto',
+    }}>
+      <div className="fade-up" style={{
+        fontFamily:"'JetBrains Mono',monospace",fontSize:11,
+        color:'var(--gold)',letterSpacing:'0.3em',marginBottom:24,
+        display:'flex',alignItems:'center',gap:12,
+      }}>
+        <span style={{display:'inline-block',width:32,height:1,background:'var(--gold)'}}/>
+        GEOPOLITICAL INTELLIGENCE
+        <span style={{display:'inline-block',width:32,height:1,background:'var(--gold)'}}/>
+      </div>
+
+      <h1 className="fade-up-2" style={{
+        fontSize:'clamp(36px,6vw,72px)',fontWeight:300,
+        lineHeight:1.1,letterSpacing:'-0.02em',marginBottom:24,
+        color:'#F0EDE0',
+      }}>
+        The world is shifting.<br/>
+        <em style={{color:'var(--gold)',fontStyle:'italic'}}>Are you reading it right?</em>
+      </h1>
+
+      <p className="fade-up-3" style={{
+        fontSize:'clamp(16px,2vw,20px)',color:'var(--muted)',
+        lineHeight:1.8,maxWidth:560,marginBottom:48,fontWeight:300,
+      }}>
+        Weekly intelligence on BRICS, de-dollarization, and what global power shifts mean for Indian business and investors. Written by <strong style={{color:'var(--text)',fontWeight:400}}>Malay Umrao</strong>.
+      </p>
+
+      <div className="fade-up-4" id="subscribe" style={{maxWidth:480}}>
+        <div style={{
+          fontFamily:"'JetBrains Mono',monospace",fontSize:10,
+          color:'var(--muted)',letterSpacing:'0.2em',marginBottom:12,
+        }}>JOIN 200+ READERS</div>
+        <div style={{display:'flex',gap:0,borderRadius:4,overflow:'hidden',border:'1px solid rgba(200,169,110,0.3)'}}>
+          <input
+            value={email}
+            onChange={e=>setEmail(e.target.value)}
+            onKeyDown={e=>e.key==='Enter'&&handleSubmit()}
+            placeholder="your@email.com"
+            style={{
+              flex:1,padding:'14px 20px',background:'rgba(200,169,110,0.05)',
+              border:'none',outline:'none',color:'var(--text)',fontSize:13,
+              letterSpacing:'0.05em',
+            }}
+          />
+          <button onClick={handleSubmit} style={{
+            padding:'14px 24px',background:'var(--gold)',border:'none',
+            color:'#07070F',cursor:'pointer',fontSize:11,fontWeight:500,
+            letterSpacing:'0.15em',whiteSpace:'nowrap',transition:'opacity 0.2s',
+          }}
+          onMouseEnter={e=>e.target.style.opacity='0.85'}
+          onMouseLeave={e=>e.target.style.opacity='1'}
+          >SUBSCRIBE</button>
+        </div>
+        {status==='success'&&(
+          <div style={{marginTop:12,fontFamily:"'JetBrains Mono',monospace",fontSize:11,color:'var(--green)',letterSpacing:'0.1em'}}>
+            SUBSCRIBED. Welcome to Meridian Brief.
+          </div>
+        )}
+        {status==='error'&&(
+          <div style={{marginTop:12,fontFamily:"'JetBrains Mono',monospace",fontSize:11,color:'var(--red)',letterSpacing:'0.1em'}}>
+            Please enter a valid email address.
+          </div>
+        )}
+        <div style={{marginTop:16,fontFamily:"'JetBrains Mono',monospace",fontSize:10,color:'#444',letterSpacing:'0.1em'}}>
+          FREE FOREVER. PAID TIER COMING SOON. NO SPAM.
+        </div>
+      </div>
+
+      <div style={{
+        marginTop:80,display:'flex',gap:48,flexWrap:'wrap',
+      }}>
+        {[['Weekly Issues','Every Wednesday'],['Focus','BRICS & India'],['Format','5 min read'],['Price','Free']].map(([k,v])=>(
+          <div key={k}>
+            <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10,color:'var(--muted)',letterSpacing:'0.2em',marginBottom:4}}>{k}</div>
+            <div style={{fontSize:18,color:'var(--gold)',fontWeight:300}}>{v}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Roadmap(){
+  const [activePhase,setActivePhase]=useState(0);
+  const [activeStep,setActiveStep]=useState(null);
+  const phase=PHASES[activePhase];
+
+  return(
+    <section id="roadmap" style={{padding:'80px 32px',maxWidth:960,margin:'0 auto'}}>
+      <div style={{marginBottom:64,textAlign:'center'}}>
+        <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:11,color:'var(--gold)',letterSpacing:'0.3em',marginBottom:16}}>
+          THE ROADMAP
+        </div>
+        <h2 style={{fontSize:'clamp(28px,4vw,44px)',fontWeight:300,letterSpacing:'-0.02em',color:'#F0EDE0'}}>
+          From zero to first rupee earned
+        </h2>
+      </div>
+
+      <div style={{display:'flex',gap:8,marginBottom:40,flexWrap:'wrap',justifyContent:'center'}}>
+        {PHASES.map((p,i)=>(
+          <button key={i} onClick={()=>{setActivePhase(i);setActiveStep(null);}} style={{
+            padding:'10px 20px',borderRadius:4,cursor:'pointer',
+            border:activePhase===i?'1px solid '+p.color:'1px solid var(--border)',
+            background:activePhase===i?p.color+'18':'transparent',
+            color:activePhase===i?p.color:'var(--muted)',
+            fontFamily:"'JetBrains Mono',monospace",fontSize:11,
+            letterSpacing:'0.1em',transition:'all 0.2s',
+          }}>
+            {p.icon} {p.title.toUpperCase()}
+          </button>
+        ))}
+      </div>
+
+      <div style={{
+        padding:'28px 32px',marginBottom:32,
+        background:'linear-gradient(135deg,'+phase.color+'10 0%,var(--bg2) 100%)',
+        border:'1px solid '+phase.color+'25',borderRadius:8,
+        position:'relative',overflow:'hidden',
+      }}>
+        <div style={{position:'absolute',right:-10,top:-20,fontSize:100,color:phase.color+'06',fontFamily:"'JetBrains Mono',monospace"}}>{phase.id}</div>
+        <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10,color:phase.color,letterSpacing:'0.2em',marginBottom:8}}>
+          PHASE {phase.id} - {phase.sub}
+        </div>
+        <h3 style={{fontSize:24,fontWeight:300,color:'#F0EDE0',marginBottom:8}}>{phase.title}</h3>
+        <p style={{color:'var(--muted)',fontSize:15,fontStyle:'italic'}}>{phase.desc}</p>
+      </div>
+
+      <div style={{display:'flex',flexDirection:'column',gap:10}}>
+        {phase.steps.map((s,i)=>{
+          const open=activeStep===i;
+          return(
+            <div key={i} onClick={()=>setActiveStep(open?null:i)} style={{
+              border:open?'1px solid '+phase.color+'35':'1px solid var(--border)',
+              borderLeft:'3px solid '+(open?phase.color:phase.color+'40'),
+              borderRadius:6,background:open?'var(--bg3)':'var(--bg2)',
+              cursor:'pointer',transition:'all 0.2s',overflow:'hidden',
+            }}>
+              <div style={{padding:'16px 20px',display:'flex',alignItems:'center',justifyContent:'space-between',gap:12}}>
+                <div style={{display:'flex',alignItems:'center',gap:14}}>
+                  <div style={{
+                    width:38,height:38,borderRadius:'50%',flexShrink:0,
+                    background:phase.color+'15',border:'1px solid '+phase.color+'25',
+                    display:'flex',alignItems:'center',justifyContent:'center',fontSize:18,
+                  }}>{s.icon}</div>
+                  <div>
+                    <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9,color:'#444',letterSpacing:'0.2em',marginBottom:3}}>STEP {i+1}</div>
+                    <div style={{fontSize:16,color:open?'#F0EDE0':'#AAA',fontWeight:300}}>{s.title}</div>
+                  </div>
+                </div>
+                <div style={{color:phase.color,fontFamily:"'JetBrains Mono',monospace",fontSize:18,flexShrink:0}}>{open?'-':'+'}</div>
+              </div>
+              {open&&(
+                <div style={{padding:'0 20px 20px 72px',borderTop:'1px solid '+phase.color+'15'}}>
+                  <p style={{fontSize:15,lineHeight:1.9,color:'#BBBBAA',marginTop:16,fontWeight:300}}>{s.body}</p>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      <div style={{display:'flex',justifyContent:'space-between',marginTop:32,gap:12}}>
+        {activePhase>0?(
+          <button onClick={()=>{setActivePhase(activePhase-1);setActiveStep(null);}} style={{
+            padding:'12px 24px',border:'1px solid var(--border)',borderRadius:4,
+            background:'transparent',color:'var(--muted)',cursor:'pointer',
+            fontFamily:"'JetBrains Mono',monospace",fontSize:11,letterSpacing:'0.1em',
+          }}>PREV: {PHASES[activePhase-1].title.toUpperCase()}</button>
+        ):<div/>}
+        {activePhase<PHASES.length-1&&(
+          <button onClick={()=>{setActivePhase(activePhase+1);setActiveStep(null);}} style={{
+            padding:'12px 24px',border:'1px solid '+PHASES[activePhase+1].color+'40',borderRadius:4,
+            background:PHASES[activePhase+1].color+'10',color:PHASES[activePhase+1].color,
+            cursor:'pointer',fontFamily:"'JetBrains Mono',monospace",fontSize:11,letterSpacing:'0.1em',
+          }}>NEXT: {PHASES[activePhase+1].title.toUpperCase()}</button>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function About(){
+  return(
+    <section style={{padding:'80px 32px',maxWidth:960,margin:'0 auto',borderTop:'1px solid var(--border)'}}>
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:64,alignItems:'center'}}>
+        <div>
+          <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:11,color:'var(--gold)',letterSpacing:'0.3em',marginBottom:20}}>
+            THE ANALYST
+          </div>
+          <h2 style={{fontSize:36,fontWeight:300,color:'#F0EDE0',marginBottom:20,lineHeight:1.2}}>
+            Malay Umrao
+          </h2>
+          <p style={{color:'var(--muted)',fontSize:16,lineHeight:1.9,marginBottom:16,fontWeight:300}}>
+            BCA graduate with a deep interest in geopolitics, global financial systems, and how world events shape business decisions in emerging markets.
+          </p>
+          <p style={{color:'var(--muted)',fontSize:16,lineHeight:1.9,fontWeight:300}}>
+            Meridian Brief exists to translate complex global shifts into clear, actionable intelligence for Indian investors, founders, and professionals.
+          </p>
+          <div style={{marginTop:32,display:'flex',gap:16,flexWrap:'wrap'}}>
+            {['BRICS','De-dollarization','India Trade','South Asia Risk'].map(t=>(
+              <span key={t} style={{
+                fontFamily:"'JetBrains Mono',monospace",fontSize:10,
+                padding:'6px 12px',border:'1px solid var(--border)',
+                borderRadius:20,color:'var(--muted)',letterSpacing:'0.1em',
